@@ -3,7 +3,7 @@ import numpy as np
 
 
 class SingleEyeCalibrator:
-    def __init__(self, src="calibrationImages/1.bmp"):
+    def __init__(self, src="calibrationImages/1515/bl.bmp"):
         # Step 1: Capture Image
         self.image = cv2.imread(src)
         self.grey = cv2.cvtColor(self.image, cv2.COLOR_BGR2GRAY)
@@ -12,11 +12,11 @@ class SingleEyeCalibrator:
         self.mainPoints, self.subPoints = self.points_cluster()
         self.maxSize = max([point.size for point in self.mainPoints])
         image = self.image.copy()
-        image = self.plot_point(image, self.mainPoints, with_order=True)
+        image = self.plot_point(image, self.mainPoints, with_order=False)
         # image = self.plot_point(image, self.subPoints, color=[0, 0, 255])
         self.image_show(image)
         # Step 3: Correct Main Points, Mark info
-        self.size = (5, 6)  # input by operator
+        self.size = (4, 5)  # input by operator
         self.zeroPoint = ["G", 2]
         # TODO: correct main points
         # Step 4: Store Main Points to matrix
@@ -34,7 +34,7 @@ class SingleEyeCalibrator:
             for j in range(self.size[1] - 1):
                 block_grey, block, dist_between_blob = self.sub_points_roi([i, j])
                 points = self.sub_points_detect(block_grey)
-                block = self.plot_point(block, points, with_order=True, color=(0, 0, 255))
+                block = self.plot_point(block, points, with_order=False, color=(0, 0, 255))
                 self.image_show(block, name="block({}, {})".format(i, j))
                 # TODO: correct subPoint
                 sub_point_matrix = self.generate_points_matrix(points, (11, 11), 2)
