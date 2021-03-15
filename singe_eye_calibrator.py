@@ -3,7 +3,7 @@ import numpy as np
 
 
 class SingleEyeCalibrator:
-    def __init__(self, src="calibrationImages/1515/bl.bmp"):
+    def __init__(self, src="calibrationImages/1520/bl.bmp"):
         # Step 1: Capture Image
         self.image = cv2.imread(src)
         self.grey = cv2.cvtColor(self.image, cv2.COLOR_BGR2GRAY)
